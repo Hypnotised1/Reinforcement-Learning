@@ -29,7 +29,6 @@ while(True):
     newGrid=np.zeros((5,5))
     for k in range(len(STATES)):
         state=STATES[k]
-        
         for j in range(4):
             newstate,reward=getStateAndReward(state,ACTIONS[j])
             newGrid[state]+=0.25*(gamma*Grid[newstate]+reward)
@@ -37,7 +36,23 @@ while(True):
         print(newGrid)
         break
     Grid=newGrid
-
+#这里是3-5
+STATES=[(x,y) for x in range(5) for y in range(5)]
+newGrid=np.zeros((5,5))
+Grid=np.zeros((5,5))
+while(True):
+    newGrid=np.zeros((5,5))
+    for k in range(len(STATES)):
+        state=STATES[k]
+        v=np.zeros(4)
+        for j in range(4):
+            newstate,reward=getStateAndReward(state,ACTIONS[j])
+            v[j]=gamma*Grid[newstate]+reward
+        newGrid[state]=np.max(v)
+    if(np.sum(np.abs(newGrid-Grid))<1e-4):
+        print(newGrid)
+        break
+    Grid=newGrid
 
 
 
