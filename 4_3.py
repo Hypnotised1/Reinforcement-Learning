@@ -4,14 +4,14 @@ import random
 
 STATES=np.arange(1,100,dtype=int)
 
-v=np.zeros((101,1))
+v=np.zeros(101)
 v[100]=1
 
 ph=0.4
     
 while True:
     newv=np.copy(v)
-    delta = 0.0
+    
     for state in STATES:
         rewards=[]
         
@@ -19,19 +19,19 @@ while True:
             reward=ph*v[state+action]+(1-ph)*v[state-action]
             rewards.append(reward)
 
-        delta+=abs(newv[state]-np.max(rewards))
+        
         newv[state]=np.max(rewards)
         
     value_change=abs(newv-v).sum()
-    print('value change %f' % (delta))
+    print('value change:'+str(value_change))
 
-    if delta<1e-9:
+    if value_change<1e-9:
         print(np.transpose(v))
         
         break
     v=newv
 
-policy=np.zeros((101,1))
+policy=np.zeros(101)
 policy[100]=0
 for state in STATES:
     rewards=[]
