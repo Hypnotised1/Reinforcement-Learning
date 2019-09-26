@@ -141,7 +141,7 @@ class DQN:
     
     def save_model(self):
         print('Model is saving!')
-        self.eval_net.save(self.model_name)
+        self.target_net.save(self.model_name)
         print('Model saves success!')
 
     def plot_loss(self):
